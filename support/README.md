@@ -60,3 +60,16 @@ VM_HOOK = [
 put your script file post_vertice_sync.rb in /var/lib/one/remotes/hooks
 
 ## letsencrypt
+
+```bash
+
+# install the letsencrypt certificate
+letsencrypt --install  <domainame> <domainip>
+# remove the letsencrypt certificate
+letsencrypt --remove <domainname>
+
+# renewal the letsencrypt certificate
+letsencrypt --autorenew <domainname>
+
+````
+
