@@ -20,3 +20,16 @@ gulpupd --version 1.5 --branch stable
 
 
 ## letsencrypt
+
+```bash
+
+# install the letsencrypt certificate
+letsencrypt --install  <domainame> <domainip>
+# remove the letsencrypt certificate
+letsencrypt --remove <domainname>
+
+# renewal the letsencrypt certificate
+letsencrypt --autorenew <domainname>
+
+````
+
