@@ -13,7 +13,7 @@ branch_template: &branch_build
 Ubuntu 14.04 branch:
       stage: build
       script:
-        - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticenilavu
+        - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/vertice
         #- cd /builds/megamsys/gitpackager/vertice
         - sudo rake clean
         - export MEGAM_HOME=/home/gitlab-runner/deb
