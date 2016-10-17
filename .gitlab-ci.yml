@@ -1,10 +1,25 @@
 
-before_script:
-  #- echo $NIGHTLY
-  - mkdir -p ~/.ssh
-  - echo "$DEV_GITLAB_SSH_KEY" > ~/.ssh/id_rsa
-  - ssh-keyscan -H get.megam.io > ~/.ssh/known_hosts
-  - sudo chmod -R 0600 ~/.ssh/
+branch_template: &branch_build
+  stage: build
+  script:
+    #- echo $NIGHTLY
+    - mkdir -p ~/.ssh
+    - echo "$DEV_GITLAB_SSH_KEY" > ~/.ssh/id_rsa
+    - ssh-keyscan -H get.megam.io > ~/.ssh/known_hosts
+    - sudo chmod -R 0600 ~/.ssh/
+
+  tags:
+  - shell
+  only:
+    - 1.5.0-rc1
+
+Ubuntu 14.04 branch:
+      script:
+        - cd builds/fc6c1713/0/megamsys/gitpackager/vertice
+        - sudo rake clean
+        - export MEGAM_HOME=deb
+        - sudo rake trusty
+      <<: *branch_build
 
 notify:slack-fail:
   #image: "alpine"
