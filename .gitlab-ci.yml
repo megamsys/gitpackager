@@ -4,7 +4,7 @@ before_script:
   - mkdir -p ~/.ssh
   - echo "$DEV_GITLAB_SSH_KEY" > ~/.ssh/id_rsa
   - ssh-keyscan -H get.megam.io > ~/.ssh/known_hosts
-  - chmod -R 0600 ~/.ssh/
+  - sudo chmod -R 0600 ~/.ssh/
 
 notify:slack-fail:
   #image: "alpine"
