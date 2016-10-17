@@ -17,7 +17,7 @@ Ubuntu 14.04 branch:
         - sudo rake clean
         - export MEGAM_HOME=deb
         - sudo rake trusty
-      <<: *branch_build
+      
 
 notify:slack-fail:
   #image: "alpine"
