@@ -1,19 +1,14 @@
-stages:
-  - package
-  - notification_fail
-  - add_to_version_server
-  - extra
-  - notification_fail
+
+before_script: # Nothing
+  - apk update && apk add git curl bash
 
 notify:slack-fail:
-  before_script: # Nothing
-    - apk update && apk add git curl bash
   #image: "alpine"
-  stage: notification_fail
+  stage: build
   script:
 
     - ./support/notify_slack "#releng" "(╯°□°)╯︵┻━┻  Build on \`$CI_BUILD_REF_NAME\` failed! Commit \`$(git log -1 --oneline)\` See <https://gitlab.com/megamsys/gitpackager/commit/"$CI_BUILD_REF"/builds>"
 
-  when: on_failure
+  #when: on_failure
   only:
     - 1.5.0-rc1
