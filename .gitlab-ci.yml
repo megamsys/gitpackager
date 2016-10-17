@@ -1,6 +1,6 @@
 
 before_script: # Nothing
-  - apk update && apk add git curl bash
+  - apt-get update && apt-get install git curl bash
 
 notify:slack-fail:
   #image: "alpine"
