@@ -1,12 +1,14 @@
 
-#before_script: # Nothing
-  #- apt-get update && apt-get install git curl bash
+before_script:
+  #- echo $NIGHTLY
+  - mkdir -p ~/.ssh
 
 notify:slack-fail:
   #image: "alpine"
   stage: build
+  tag: shell
   script:
-    - apt-get update && apt-get install git curl bash
+    - sudo apt-get update && apt-get install git curl bash
     - ./support/notify_slack "#relengg" "(╯°□°)╯︵┻━┻  Build on \`$CI_BUILD_REF_NAME\` success! Commit \`$(git log -1 --oneline)\` See <https://gitlab.com/megamsys/gitpackager/commit/"$CI_BUILD_REF"/builds>"
   #when: on_failure
   only:
