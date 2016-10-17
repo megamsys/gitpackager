@@ -16,7 +16,7 @@ Ubuntu 14.04 branch:
         - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/vertice
         #- cd /builds/megamsys/gitpackager/vertice
         - sudo rake clean
-        - export MEGAM_HOME=deb
+        - export MEGAM_HOME=/home/gitlab-runner/deb
         - sudo rake trusty
 
 
