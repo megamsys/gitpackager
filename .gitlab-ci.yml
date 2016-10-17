@@ -2,13 +2,16 @@
 before_script:
   #- echo $NIGHTLY
   - mkdir -p ~/.ssh
+  - echo "$DEV_GITLAB_SSH_KEY" > ~/.ssh/id_rsa
+  - ssh-keyscan -H get.megam.io > ~/.ssh/known_hosts
+  - chmod -R 0600 ~/.ssh/
 
 notify:slack-fail:
   #image: "alpine"
   stage: build
   script:
     - sudo apt-get update && apt-get install git curl bash
-    - ./support/notify_slack "#relengg" "(╯°□°)╯︵┻━┻  Build on \`$CI_BUILD_REF_NAME\` success! Commit \`$(git log -1 --oneline)\` See <https://gitlab.com/megamsys/gitpackager/commit/"$CI_BUILD_REF"/builds>"
+    #- ./support/notify_slack "#relengg" "(╯°□°)╯︵┻━┻  Build on \`$CI_BUILD_REF_NAME\` success! Commit \`$(git log -1 --oneline)\` See <https://gitlab.com/megamsys/gitpackager/commit/"$CI_BUILD_REF"/builds>"
   #when: on_failure
   only:
     - 1.5.0-rc1
