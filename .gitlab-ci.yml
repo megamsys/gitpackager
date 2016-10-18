@@ -19,8 +19,7 @@ Ubuntu 14.04 verticensqd:
     - rake clean
     - echo "$USER"
     - rake trusty
-  <<: *branch_build
-  
+
 Ubuntu 14.04 verticegateway:
   stage: build
   script:
