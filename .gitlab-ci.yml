@@ -14,12 +14,12 @@ Ubuntu 14.04 branch:
   stage: build
   script:
     - w
-    - export GOPATH=/home/gitlab-runner/.go
-    - export GOROOT=/home/gitlab-runner/software/go
+    - export GOPATH=/home/megdc/.go
+    - export GOROOT=/home/megdc/software/go
     - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/vertice
         #- cd /builds/megamsys/gitpackager/vertice
     - rake clean
-    - export MEGAM_HOME=/home/gitlab-runner/deb
+    - export MEGAM_HOME=/home/megdc/deb
     - rake trusty
   only:
     - 1.5.0-rc1
