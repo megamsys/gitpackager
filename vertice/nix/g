@@ -32,3 +32,5 @@ sent from Vertice gateway, processing events for billing, user alerts and integr
 to billing systems like WHMCS.
 .
 This package contains a golang based server that is the core engine for Megam Vertice." ./usr/share/megam/vertice
+
+ cp -R  build/trusty/*.deb /home/gitlab-runner/deb
