@@ -10,6 +10,16 @@ branch_template: &branch_build
   only:
     - 1.5.0-rc1
 
+Ubuntu 14.04 verticegateway:
+  stage: build
+  script:
+    - echo "$USER"
+    - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticegateway
+        #- cd /builds/megamsys/gitpackager/vertice
+    - rake clean
+    - echo "$USER"
+    - rake trusty    
+
 Ubuntu 14.04 vertice:
   stage: build
   script:
@@ -27,17 +37,9 @@ Ubuntu 14.04 vertice:
     - echo $MEGAM_HOME
     - echo "$USER"
     - rake trusty
+    - cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/vertice/build/trusty/*.deb /home/gitlab-runner/deb
 
-Ubuntu 14.04 verticegateway:
-  stage: build
-  script:
-    - echo "$USER"
-    - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticegateway
-        #- cd /builds/megamsys/gitpackager/vertice
-    - rake clean
-    - echo "$USER"
-    - rake trusty
-    
+
 notify:slack-fail:
   #image: "alpine"
   stage: build
