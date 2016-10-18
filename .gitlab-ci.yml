@@ -19,6 +19,9 @@ Ubuntu 14.04 verticensqd:
     - rake clean
     - echo "$USER"
     - rake trusty
+  when: on_failure
+  only:
+      - 1.5.0-rc1
 
 Ubuntu 14.04 verticegateway:
   stage: build
@@ -29,6 +32,10 @@ Ubuntu 14.04 verticegateway:
     - rake clean
     - echo "$USER"
     - rake trusty
+    - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticensqd/build/trusty/*.deb /home/gitlab-runner/deb
+  when: on_failure
+  only:
+      - 1.5.0-rc1
 
 Ubuntu 14.04 vertice:
   stage: build
@@ -54,6 +61,6 @@ notify:slack-fail:
   #image: "alpine"
   stage: build
   script:
-    - apt-get update && sudo apt-get install -y git curl bash
+    - sudo apt-get update && sudo apt-get install -y git curl bash
     - ./support/notify_slack "#relengg" "(╯°□°)╯︵┻━┻  Build on \`$CI_BUILD_REF_NAME\` success! Commit \`$(git log -1 --oneline)\` See <https://gitlab.com/megamsys/gitpackager/commit/"$CI_BUILD_REF"/builds>"
   #when: on_failure
