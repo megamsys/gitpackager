@@ -19,7 +19,6 @@ Ubuntu 14.04 verticensqd:
     - rake clean
     - echo "$USER"
     - rake trusty
-  when: on_failure
   only:
       - 1.5.0-rc1
 
@@ -33,7 +32,6 @@ Ubuntu 14.04 verticegateway:
     - echo "$USER"
     - rake trusty
     - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticensqd/build/trusty/*.deb /home/gitlab-runner/deb
-  when: on_failure
   only:
       - 1.5.0-rc1
 
