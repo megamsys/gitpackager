@@ -10,6 +10,16 @@ branch_template: &branch_build
   only:
     - 1.5.0-rc1
 
+Ubuntu 14.04 verticensqd:
+  stage: build
+  script:
+    - echo "$USER"
+    - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticensqd
+        #- cd /builds/megamsys/gitpackager/vertice
+    - rake clean
+    - echo "$USER"
+    - rake trusty
+
 Ubuntu 14.04 verticegateway:
   stage: build
   script:
@@ -18,13 +28,12 @@ Ubuntu 14.04 verticegateway:
         #- cd /builds/megamsys/gitpackager/vertice
     - rake clean
     - echo "$USER"
-    - rake trusty    
+    - rake trusty
 
 Ubuntu 14.04 vertice:
   stage: build
   script:
     - echo "$USER"
-    - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/vertice
         #- cd /builds/megamsys/gitpackager/vertice
     - export GOPATH=/home/gitlab-runner/.go
     - export GOROOT=/home/gitlab-runner/software/go
@@ -32,12 +41,13 @@ Ubuntu 14.04 vertice:
     - echo "$GOPATH"
     - echo $GOROOT
     - echo $PATH
+    - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/vertice
     - rake clean
     - export MEGAM_HOME=/home/megdc/deb
     - echo $MEGAM_HOME
     - echo "$USER"
     - rake trusty
-    - cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/vertice/build/trusty/*.deb /home/gitlab-runner/deb
+    - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/vertice/build/trusty/*.deb /home/gitlab-runner/deb
 
 
 notify:slack-fail:
