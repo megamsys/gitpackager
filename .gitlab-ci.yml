@@ -4,9 +4,9 @@ branch_template: &branch_build
   script:
     #- echo $NIGHTLY
     - mkdir -p ~/.ssh
-    - echo "$DEV_GITLAB_SSH_KEY" > ~/.ssh/id_rsa
-    - ssh-keyscan -H get.megam.io > ~/.ssh/known_hosts
-    - sudo chmod -R 0600 ~/.ssh/
+    #- echo "$DEV_GITLAB_SSH_KEY" > ~/.ssh/id_rsa
+    #- ssh-keyscan -H get.megam.io > ~/.ssh/known_hosts
+    #- sudo chmod -R 0600 ~/.ssh/
   only:
     - 1.5.0-rc1
 
@@ -19,9 +19,8 @@ Ubuntu 14.04 verticensqd:
     - rake clean
     - echo "$USER"
     - rake trusty
-  only:
-      - 1.5.0-rc1
-
+  <<: *branch_build
+  
 Ubuntu 14.04 verticegateway:
   stage: build
   script:
@@ -32,8 +31,7 @@ Ubuntu 14.04 verticegateway:
     - echo "$USER"
     - rake trusty
     - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticensqd/build/trusty/*.deb /home/gitlab-runner/deb
-  only:
-      - 1.5.0-rc1
+
 
 Ubuntu 14.04 vertice:
   stage: build
