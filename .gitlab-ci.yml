@@ -18,6 +18,7 @@ Ubuntu 14.04 branch:
     - export GOROOT=/home/megdc/software/go
     - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/vertice
         #- cd /builds/megamsys/gitpackager/vertice
+    - sudo -s    
     - rake clean
     - export MEGAM_HOME=/home/megdc/deb
     - rake trusty
