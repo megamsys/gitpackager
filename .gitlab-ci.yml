@@ -11,18 +11,18 @@ branch_template: &branch_build
     - 1.5.0-rc1
 
 Ubuntu 14.04 branch:
-      stage: build
-      script:
-        - w
-        - export GOPATH=/home/gitlab-runner/.go
-        - export GOROOT=/home/gitlab-runner/software/go
-        - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/vertice
+  stage: build
+  script:
+    - w
+    - export GOPATH=/home/gitlab-runner/.go
+    - export GOROOT=/home/gitlab-runner/software/go
+    - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/vertice
         #- cd /builds/megamsys/gitpackager/vertice
-        - rake clean
-        - export MEGAM_HOME=/home/gitlab-runner/deb
-        - rake trusty
-       only:
-         - 1.5.0-rc1
+    - rake clean
+    - export MEGAM_HOME=/home/gitlab-runner/deb
+    - rake trusty
+  only:
+    - 1.5.0-rc1
 
 notify:slack-fail:
   #image: "alpine"
