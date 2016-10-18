@@ -18,8 +18,10 @@ Ubuntu 14.04 branch:
         #- cd /builds/megamsys/gitpackager/vertice
     - export GOPATH=/home/gitlab-runner/.go
     - export GOROOT=/home/gitlab-runner/software/go
+    - export PATH="$PATH:$HOME/.rvm/bin:$GOROOT/bin:$GOPATH/bin"
     - echo "$GOPATH"
     - echo $GOROOT
+    - echo $PATH
     - rake clean
     - export MEGAM_HOME=/home/megdc/deb
     - echo $MEGAM_HOME
