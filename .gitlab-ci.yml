@@ -7,15 +7,13 @@ branch_template: &branch_build
     - echo "$DEV_GITLAB_SSH_KEY" > ~/.ssh/id_rsa
     - ssh-keyscan -H get.megam.io > ~/.ssh/known_hosts
     - sudo chmod -R 0600 ~/.ssh/
-  except:
+  only:
     - 1.5.0-rc1
 
 Ubuntu 14.04 branch:
   stage: build
   script:
-    - w
-    - export GOPATH=/home/megdc/.go
-    - export GOROOT=/home/megdc/software/go
+    - echo "$USER"
     - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/vertice
         #- cd /builds/megamsys/gitpackager/vertice
     - sudo -s
@@ -23,7 +21,7 @@ Ubuntu 14.04 branch:
     - export MEGAM_HOME=/home/megdc/deb
     - echo "$USER"
     - rake trusty
-  only:
+  except:
     - 1.5.0-rc1
 
 notify:slack-fail:
