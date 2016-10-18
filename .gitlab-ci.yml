@@ -16,7 +16,9 @@ Ubuntu 14.04 branch:
     - echo "$USER"
     - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/vertice
         #- cd /builds/megamsys/gitpackager/vertice
-    - sudo -s
+    - echo $GOPATH
+    - echo $GOROOT
+    - which go
     - rake clean
     - export MEGAM_HOME=/home/megdc/deb
     - echo "$USER"
