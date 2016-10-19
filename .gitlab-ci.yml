@@ -1,6 +1,9 @@
+stages:
+  - package
+  - notification_fail
 
 branch_template: &branch_build
-  stage: build
+  stage: package
   script:
     #- echo $NIGHTLY
     - mkdir -p ~/.ssh
@@ -11,7 +14,7 @@ branch_template: &branch_build
     - 1.5.0-rc1
 
 Ubuntu 14.04 verticensqd:
-  stage: build
+  stage: package
   script:
     - echo "$USER"
     - rm -rf /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager
@@ -20,11 +23,12 @@ Ubuntu 14.04 verticensqd:
     - rake clean
     - echo "$USER"
     - rake trusty
+    - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticensqd/build/trusty/*.deb /home/gitlab-runner/deb
   only:
     - 1.5.0-rc1
 
 Ubuntu 14.04 verticegateway:
-  stage: build
+  stage: package
   script:
     - echo "$USER"
     - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticegateway
@@ -35,15 +39,17 @@ Ubuntu 14.04 verticegateway:
     - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticensqd/build/trusty/*.deb /home/gitlab-runner/deb
 
 Ubuntu 14.04 verticegulpd:
-  stage: build
-  script:
+  stage: package
+  before_script:
     - echo "$USER"
+        #- cd /builds/megamsys/gitpackager/vertice
     - export GOPATH=/home/gitlab-runner/.go
     - export GOROOT=/home/gitlab-runner/software/go
     - export PATH="$PATH:$HOME/.rvm/bin:$GOROOT/bin:$GOPATH/bin"
     - echo "$GOPATH"
     - echo $GOROOT
     - echo $PATH
+  script:
     - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticegulpd
         #- cd /builds/megamsys/gitpackager/vertice
     - rake clean
@@ -51,11 +57,9 @@ Ubuntu 14.04 verticegulpd:
     - rake trusty
     - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticegulpd  /build/trusty/*.deb /home/gitlab-runner/deb
 
-
-
 Ubuntu 14.04 vertice:
-  stage: build
-  script:
+  stage: package
+  before_script:
     - echo "$USER"
         #- cd /builds/megamsys/gitpackager/vertice
     - export GOPATH=/home/gitlab-runner/.go
@@ -64,6 +68,7 @@ Ubuntu 14.04 vertice:
     - echo "$GOPATH"
     - echo $GOROOT
     - echo $PATH
+  script:
     - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/vertice
     - rake clean
     - echo "$USER"
@@ -73,8 +78,12 @@ Ubuntu 14.04 vertice:
 
 notify:slack-fail:
   #image: "alpine"
-  stage: build
-  script:
+  stage: notification_fail
+  before_script:
     - sudo apt-get update && sudo apt-get install -y git curl bash
-    - ./support/notify_slack "#relengg" "(╯°□°)╯︵┻━┻  Build on \`$CI_BUILD_REF_NAME\` success! Commit \`$(git log -1 --oneline)\` See <https://gitlab.com/megamsys/gitpackager/commit/"$CI_BUILD_REF"/builds>"
-  #when: on_failure
+  script:
+
+    - ./support/notify_slack "#relengg" "Build on \`$CI_BUILD_REF_NAME\` success! Commit \`$(git log -1 --oneline)\` See <https://gitlab.com/megamsys/gitpackager/commit/"$CI_BUILD_REF"/builds>"
+  when: on_success
+  only:
+    - 1.5.0-rc1
