@@ -16,7 +16,7 @@ branch_template: &branch_build
 Ubuntu 14.04 verticensqd:
   stage: package
   before_script:
-    -sleep 10
+    - sleep 10
   script:
     - echo "$USER"
     - rm -rf /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager
