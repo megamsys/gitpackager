@@ -2,16 +2,16 @@ stages:
   - package
   - notification_fail
 
-branch_template: &branch_build
-  stage: package
-  script:
+#branch_template: &branch_build
+#  stage: package
+  #script:
     #- echo $NIGHTLY
-    - mkdir -p ~/.ssh
+    #- mkdir -p ~/.ssh
     #- echo "$DEV_GITLAB_SSH_KEY" > ~/.ssh/id_rsa
     #- ssh-keyscan -H get.megam.io > ~/.ssh/known_hosts
     #- sudo chmod -R 0600 ~/.ssh/
-  only:
-    - 1.5.0-rc1
+  #only:
+  #  - 1.5.0-rc1
 
 Ubuntu 14.04 verticensqd:
   stage: package
@@ -21,13 +21,26 @@ Ubuntu 14.04 verticensqd:
     - echo "$USER"
     - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager /var/lib/megam
     - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticensqd
-    - cd /var/lib/megam/gitpackager/verticensqd
+    #- cd /var/lib/megam/gitpackager/verticensqd
     - rake clean
     - echo "$USER"
     - rake trusty
     - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticensqd/build/trusty/*.deb /home/gitlab-runner/deb
-  only:
-    - 1.5.0-rc1
+
+Ubuntu 14.04 verticenilavu:
+  stage: package
+  before_script:
+    - sleep 5
+  script:
+    - echo "$USER"
+    - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager /var/lib/megam
+    - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticenilavu
+    #- cd /var/lib/megam/gitpackager/verticensqd
+    - rake clean
+    - echo "$USER"
+    - rake trusty
+    - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticenilavu/build/trusty/*.deb /home/gitlab-runner/deb
+
 
 Ubuntu 14.04 verticegateway:
   stage: package
