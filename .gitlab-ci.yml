@@ -34,6 +34,24 @@ Ubuntu 14.04 verticegateway:
     - rake trusty
     - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticensqd/build/trusty/*.deb /home/gitlab-runner/deb
 
+Ubuntu 14.04 verticegulpd:
+  stage: build
+  script:
+    - echo "$USER"
+    - export GOPATH=/home/gitlab-runner/.go
+    - export GOROOT=/home/gitlab-runner/software/go
+    - export PATH="$PATH:$HOME/.rvm/bin:$GOROOT/bin:$GOPATH/bin"
+    - echo "$GOPATH"
+    - echo $GOROOT
+    - echo $PATH
+    - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticegulpd
+        #- cd /builds/megamsys/gitpackager/vertice
+    - rake clean
+    - echo "$USER"
+    - rake trusty
+    - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticegulpd  /build/trusty/*.deb /home/gitlab-runner/deb
+
+
 
 Ubuntu 14.04 vertice:
   stage: build
@@ -48,8 +66,6 @@ Ubuntu 14.04 vertice:
     - echo $PATH
     - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/vertice
     - rake clean
-    - export MEGAM_HOME=/home/megdc/deb
-    - echo $MEGAM_HOME
     - echo "$USER"
     - rake trusty
     - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/vertice/build/trusty/*.deb /home/gitlab-runner/deb
