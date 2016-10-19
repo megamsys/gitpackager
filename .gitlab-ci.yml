@@ -15,6 +15,8 @@ branch_template: &branch_build
 
 Ubuntu 14.04 verticensqd:
   stage: package
+  before_script:
+    -sleep 10
   script:
     - echo "$USER"
     - rm -rf /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager
@@ -30,13 +32,14 @@ Ubuntu 14.04 verticensqd:
 Ubuntu 14.04 verticegateway:
   stage: package
   script:
+    - sleep 10
     - echo "$USER"
     - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticegateway
         #- cd /builds/megamsys/gitpackager/vertice
     - rake clean
     - echo "$USER"
     - rake trusty
-    - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticensqd/build/trusty/*.deb /home/gitlab-runner/deb
+    - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticensqd/build/trusty/vertice_gateway/target/*.deb /home/gitlab-runner/deb
 
 Ubuntu 14.04 verticegulpd:
   stage: package
@@ -78,7 +81,7 @@ Ubuntu 14.04 vertice:
 
 notify:slack-fail:
   #image: "alpine"
-  stage: notification_fail
+  stage: package
   before_script:
     - sudo apt-get update && sudo apt-get install -y git curl bash
   script:
