@@ -1,6 +1,10 @@
 stages:
   - package
   - notification_fail
+  - build
+  - test
+  - gulp
+  - dep
 
 #branch_template: &branch_build
 #  stage: package
@@ -28,7 +32,7 @@ Ubuntu 14.04 verticensqd:
     - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticensqd/build/trusty/*.deb /home/gitlab-runner/deb
 
 Ubuntu 14.04 verticenilavu:
-  stage: package
+  stage: build
   before_script:
     - sleep 5
   script:
@@ -42,7 +46,7 @@ Ubuntu 14.04 verticenilavu:
     - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticenilavu/build/trusty/*.deb /home/gitlab-runner/deb
 
 Ubuntu 14.04 verticecadvisor:
-  stage: package
+  stage: test
   before_script:
     - sleep 5
   script:
@@ -57,7 +61,7 @@ Ubuntu 14.04 verticecadvisor:
 
 
 Ubuntu 14.04 verticegateway:
-  stage: package
+  stage: gulp
   script:
     - sleep 10
     - echo "$USER"
@@ -69,7 +73,7 @@ Ubuntu 14.04 verticegateway:
     - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticensqd/build/trusty/vertice_gateway/target/*.deb /home/gitlab-runner/deb
 
 Ubuntu 14.04 verticegulpd:
-  stage: package
+  stage: notification_fail
   before_script:
     - echo "$USER"
         #- cd /builds/megamsys/gitpackager/vertice
@@ -88,7 +92,7 @@ Ubuntu 14.04 verticegulpd:
     - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticegulpd  /build/trusty/*.deb /home/gitlab-runner/deb
 
 Ubuntu 14.04 vertice:
-  stage: package
+  stage: dep
   before_script:
     - echo "$USER"
         #- cd /builds/megamsys/gitpackager/vertice
