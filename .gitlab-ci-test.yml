@@ -93,7 +93,6 @@ Ubuntu 14.04 verticegulpd:
     - echo $PATH
   script:
     - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticegulpd
-        #- cd /builds/megamsys/gitpackager/vertice
     - rake clean
     - echo "$USER"
     - rake trusty
@@ -103,7 +102,6 @@ Ubuntu 14.04 verticegulpd:
   allow_failure: true
 
 notify:slack-fail:
-  #image: "alpine"
   stage: notification_fail
   before_script:
     - sudo apt-get update && sudo apt-get install -y git curl bash
