@@ -1,6 +1,6 @@
 stages:
-  - package
   - build
+  - package
 
 Ubuntu 14.04 verticensqd:
   stage: package
