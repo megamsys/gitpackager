@@ -1,0 +1,19 @@
+stages:
+  - package
+
+Ubuntu 14.04 verticensqd:
+  stage: package
+  before_script:
+    - sleep 5
+  script:
+    - echo "$USER"
+    - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager /var/lib/megam
+    - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticensqd
+    #- cd /var/lib/megam/gitpackager/verticensqd
+    - rake clean
+    - echo "$USER"
+    - rake trusty
+    - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticensqd/build/trusty/*.deb /home/gitlab-runner/deb
+  allow_failure: true
+  only:
+    - 1.5.0-rc1
