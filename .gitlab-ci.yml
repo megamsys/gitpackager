@@ -21,17 +21,17 @@ Ubuntu 14.04 verticensqd:
   stage: package
   before_script:
     #- sudo rm -rf /var/lib/megam/gitpackager
-    - cd /var/lib/megam
+    - cd /home/gitlab-runner
     - git clone git@gitlab.com:megamsys/gitpackager
   script:
     - echo "$USER"
     #- sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager /var/lib/megam
     #- cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticensqd
-    - cd /var/lib/megam/gitpackager/verticensqd
+    - cd /home/gitlab-runner/gitpackager/verticensqd
     - rake clean
     - echo "$USER"
     - rake trusty
-    - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticensqd/build/trusty/*.deb /home/gitlab-runner/deb
+    - sudo cp -R /home/gitlab-runner/gitpackager/verticensqd/build/trusty/*.deb /home/gitlab-runner/deb
   allow_failure: true
   only:
     - 1.5.0-rc1
@@ -39,14 +39,14 @@ Ubuntu 14.04 verticensqd:
 Ubuntu 14.04 verticenilavu:
   stage: build
   before_script:
-    - sudo rm -rf /var/lib/megam/gitpackager
-    - cd /var/lib/megam
+    - sudo rm -rf cd /home/gitlab-runner/gitpackager
+    - cd /home/gitlab-runner
     - git clone git@gitlab.com:megamsys/gitpackager
   script:
     - echo "$USER"
     #- sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager /var/lib/megam
     #- cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticenilavu
-    - cd /var/lib/megam/gitpackager/verticenilavu
+    - cd /home/gitlab-runner/gitpackager/verticenilavu
     - rake clean
     - echo "$USER"
     - rake trusty
