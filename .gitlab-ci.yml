@@ -21,7 +21,6 @@ Ubuntu 14.04 verticensqd:
 Ubuntu 14.04 verticenilavu:
   stage: build
   before_script:
-    #- git clone git@gitlab.com:megamsys/gitpackager
     - sleep 10
   script:
     - echo "$USER"
