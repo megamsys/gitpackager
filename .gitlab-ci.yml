@@ -30,6 +30,9 @@ Ubuntu 14.04 verticensqd:
     - echo "$USER"
     - rake trusty
     - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticensqd/build/trusty/*.deb /home/gitlab-runner/deb
+  allow_failure: true
+  only:
+    - 1.5.0-rc1
 
 Ubuntu 14.04 verticenilavu:
   stage: build
@@ -44,6 +47,10 @@ Ubuntu 14.04 verticenilavu:
     - echo "$USER"
     - rake trusty
     - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticenilavu/build/trusty/*.deb /home/gitlab-runner/deb
+  allow_failure: true
+  only:
+    - 1.5.0-rc1  
+
 
 Ubuntu 14.04 verticecadvisor:
   stage: test
