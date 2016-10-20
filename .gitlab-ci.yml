@@ -20,12 +20,14 @@ stages:
 Ubuntu 14.04 verticensqd:
   stage: package
   before_script:
-    - sleep 5
+    - rm -rf /var/lib/megam/gitpackager
+    - cd /var/lib/megam
+    - git clone git@gitlab.com:megamsys/gitpackager
   script:
     - echo "$USER"
-    - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager /var/lib/megam
-    - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticensqd
-    #- cd /var/lib/megam/gitpackager/verticensqd
+    #- sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager /var/lib/megam
+    #- cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticensqd
+    - cd /var/lib/megam/gitpackager/verticensqd
     - rake clean
     - echo "$USER"
     - rake trusty
@@ -37,47 +39,62 @@ Ubuntu 14.04 verticensqd:
 Ubuntu 14.04 verticenilavu:
   stage: build
   before_script:
-    - sleep 5
+    - rm -rf /var/lib/megam/gitpackager
+    - cd /var/lib/megam
+    - git clone git@gitlab.com:megamsys/gitpackager
   script:
     - echo "$USER"
-    - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager /var/lib/megam
-    - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticenilavu
-    #- cd /var/lib/megam/gitpackager/verticensqd
+    #- sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager /var/lib/megam
+    #- cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticenilavu
+    - cd /var/lib/megam/gitpackager/verticenilavu
     - rake clean
     - echo "$USER"
     - rake trusty
-    - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticenilavu/build/trusty/*.deb /home/gitlab-runner/deb
-  allow_failure: true
+    #- sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticenilavu/build/trusty/*.deb /home/gitlab-runner/deb
+    - sudo cp -R /var/lib/megam/gitpackager/verticecadvisor/build/trusty/*.deb /home/gitlab-runner/deb
   only:
-    - 1.5.0-rc1  
+    - 1.5.0-rc1
+  allow_failure: true
 
 
 Ubuntu 14.04 verticecadvisor:
   stage: test
   before_script:
-    - sleep 5
+    - git clone git@gitlab.com:megamsys/gitpackager
   script:
     - echo "$USER"
-    - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager /var/lib/megam
-    - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticecadvisor
-    #- cd /var/lib/megam/gitpackager/verticensqd
+    #- sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager /var/lib/megam
+    #- cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticecadvisor
+    - cd /var/lib/megam/gitpackager/verticecadvisor
     - rake clean
     - echo "$USER"
     - rake trusty
-    - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticecadvisor/build/trusty/*.deb /home/gitlab-runner/deb
+    #- sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticecadvisor/build/trusty/*.deb /home/gitlab-runner/deb
+    - sudo cp -R /var/lib/megam/gitpackager/verticecadvisor/build/trusty/*.deb /home/gitlab-runner/deb
+  only:
+    - 1.5.0-rc1
+  allow_failure: true
 
 
 Ubuntu 14.04 verticegateway:
   stage: gulp
+  before_script:
+    - cd /var/lib/megam
+    - rm -rf /var/lib/megam/gitpackager
+    - git clone git@gitlab.com:megamsys/gitpackager
   script:
-    - sleep 10
     - echo "$USER"
     - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticegateway
         #- cd /builds/megamsys/gitpackager/vertice
     - rake clean
     - echo "$USER"
     - rake trusty
-    - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticensqd/build/trusty/vertice_gateway/target/*.deb /home/gitlab-runner/deb
+  #  - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticensqd/build/trusty/vertice_gateway/target/*.deb /home/gitlab-runner/deb
+    - sudo cp -R /var/lib/megam/gitpackager/verticecadvisor/build/trusty/*.deb /home/gitlab-runner/deb
+
+  only:
+    - 1.5.0-rc1
+  allow_failure: true
 
 Ubuntu 14.04 verticegulpd:
   stage: notification_fail
@@ -117,13 +134,13 @@ Ubuntu 14.04 vertice:
     - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/vertice/build/trusty/*.deb /home/gitlab-runner/deb
 
 
-notify:slack-fail:
+#notify:slack-fail:
   #image: "alpine"
-  stage: package
-  before_script:
-    - sudo apt-get update && sudo apt-get install -y git curl bash
-  script:
-    - ./support/notify_slack "#relengg" "Build on \`$CI_BUILD_REF_NAME\` success! Commit \`$(git log -1 --oneline)\` See <https://gitlab.com/megamsys/gitpackager/commit/"$CI_BUILD_REF"/builds>"
-  when: on_success
-  only:
-    - 1.5.0-rc1
+#  stage: package
+#  before_script:
+#    - sudo apt-get update && sudo apt-get install -y git curl bash
+  #script:
+  #  - ./support/notify_slack "#relengg" "Build on \`$CI_BUILD_REF_NAME\` success! Commit \`$(git log -1 --oneline)\` See <https://gitlab.com/megamsys/gitpackager/commit/"$CI_BUILD_REF"/builds>"
+  #when: on_success
+  #only:
+  #  - 1.5.0-rc1
