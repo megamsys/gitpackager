@@ -39,7 +39,7 @@ Ubuntu 14.04 verticensqd:
 Ubuntu 14.04 verticenilavu:
   stage: build
   before_script:
-    - sudo rm -rf cd /home/gitlab-runner/gitpackager
+    - sudo rm -rf /home/gitlab-runner/gitpackager
     - cd /home/gitlab-runner
     - git clone git@gitlab.com:megamsys/gitpackager
   script:
@@ -51,7 +51,7 @@ Ubuntu 14.04 verticenilavu:
     - echo "$USER"
     - rake trusty
     #- sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticenilavu/build/trusty/*.deb /home/gitlab-runner/deb
-    - sudo cp -R /var/lib/megam/gitpackager/verticecadvisor/build/trusty/*.deb /home/gitlab-runner/deb
+    - sudo cp -R /home/gitlab-runner/gitpackager/verticecadvisor/build/trusty/*.deb /home/gitlab-runner/deb
   only:
     - 1.5.0-rc1
   allow_failure: true
@@ -60,19 +60,19 @@ Ubuntu 14.04 verticenilavu:
 Ubuntu 14.04 verticecadvisor:
   stage: test
   before_script:
-    - sudo rm -rf /var/lib/megam/gitpackager
-    - cd /var/lib/megam
+    - sudo rm -rf /home/gitlab-runner/gitpackager
+    - cd /home/gitlab-runner/
     - git clone git@gitlab.com:megamsys/gitpackager
   script:
     - echo "$USER"
     #- sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager /var/lib/megam
     #- cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticecadvisor
-    - cd /var/lib/megam/gitpackager/verticecadvisor
+    - cd //home/gitlab-runner/gitpackager/verticecadvisor
     - rake clean
     - echo "$USER"
     - rake trusty
     #- sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticecadvisor/build/trusty/*.deb /home/gitlab-runner/deb
-    - sudo cp -R /var/lib/megam/gitpackager/verticecadvisor/build/trusty/*.deb /home/gitlab-runner/deb
+    - sudo cp -R /home/gitlab-runner//gitpackager/verticecadvisor/build/trusty/*.deb /home/gitlab-runner/deb
   only:
     - 1.5.0-rc1
   allow_failure: true
@@ -81,18 +81,18 @@ Ubuntu 14.04 verticecadvisor:
 Ubuntu 14.04 verticegateway:
   stage: gulp
   before_script:
-    - cd /var/lib/megam
-    - rm -rf /var/lib/megam/gitpackager
+    - cd /home/gitlab-runner/
+    - rm -rf /home/gitlab-runner/gitpackager
     - git clone git@gitlab.com:megamsys/gitpackager
   script:
     - echo "$USER"
-    - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticegateway
-        #- cd /builds/megamsys/gitpackager/vertice
+    #- cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticegateway
+    - cd /home/gitlab-runner/gitpackager/vertice
     - rake clean
     - echo "$USER"
     - rake trusty
   #  - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticensqd/build/trusty/vertice_gateway/target/*.deb /home/gitlab-runner/deb
-    - sudo cp -R /var/lib/megam/gitpackager/verticecadvisor/build/trusty/*.deb /home/gitlab-runner/deb
+    - sudo cp -R /home/gitlab-runner/gitpackager/verticecadvisor/build/trusty/*.deb /home/gitlab-runner/deb
 
   only:
     - 1.5.0-rc1
