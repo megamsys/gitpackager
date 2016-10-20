@@ -1,6 +1,6 @@
 stages:
   - build
-  - test
+  - deploy
 
 Ubuntu 14.04 verticensqd:
   stage: build
@@ -19,15 +19,13 @@ Ubuntu 14.04 verticensqd:
     - 1.5.0-rc1
 
 Ubuntu 14.04 verticenilavu:
-  stage: test
+  stage: deploy
   before_script:
     - sleep 10
   script:
     - echo "$USER"
     - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager /var/lib/megam
     - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticenilavu
-    #- cd /var/lib/megam/gitpackager/verticensqd
-    - rake clean
     - echo "$USER"
     - rake trusty
     - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticenilavu/build/trusty/*.deb /home/gitlab-runner/deb
