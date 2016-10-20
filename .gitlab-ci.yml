@@ -1,8 +1,8 @@
 stages:
-  - branch_build
+  - package
 
 Ubuntu 14.04 verticensqd:
-  stage: branch_build
+  stage: package
   before_script:
     - sleep 5
   script:
