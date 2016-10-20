@@ -1,0 +1,137 @@
+stages:
+  - package
+  - notification_fail
+  - build
+  - test
+  - gulp
+  - dep
+
+#branch_template: &branch_build
+#  stage: package
+  #script:
+    #- echo $NIGHTLY
+    #- mkdir -p ~/.ssh
+    #- echo "$DEV_GITLAB_SSH_KEY" > ~/.ssh/id_rsa
+    #- ssh-keyscan -H get.megam.io > ~/.ssh/known_hosts
+    #- sudo chmod -R 0600 ~/.ssh/
+  #only:
+  #  - 1.5.0-rc1
+
+Ubuntu 14.04 verticensqd:
+  stage: package
+  before_script:
+    - sleep 5
+  script:
+    - echo "$USER"
+    - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager /var/lib/megam
+    - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticensqd
+    #- cd /var/lib/megam/gitpackager/verticensqd
+    - rake clean
+    - echo "$USER"
+    - rake trusty
+    - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticensqd/build/trusty/*.deb /home/gitlab-runner/deb
+  allow_failure: true
+  only:
+    - 1.5.0-rc1
+
+Ubuntu 14.04 verticenilavu:
+  stage: build
+  before_script:
+    #- git clone git@gitlab.com:megamsys/gitpackager
+    - sleep 10
+  script:
+    - echo "$USER"
+    - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager /var/lib/megam
+    - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticenilavu
+    #- cd /var/lib/megam/gitpackager/verticensqd
+    - rake clean
+    - echo "$USER"
+    - rake trusty
+    - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticenilavu/build/trusty/*.deb /home/gitlab-runner/deb
+  only:
+    - 1.5.0-rc1
+  allow_failure: true
+
+
+Ubuntu 14.04 verticecadvisor:
+  stage: test
+  before_script:
+    - git clone git@gitlab.com:megamsys/gitpackager
+  script:
+    - echo "$USER"
+    - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager /var/lib/megam
+    - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticecadvisor
+    #- cd /var/lib/megam/gitpackager/verticensqd
+    - rake clean
+    - echo "$USER"
+    - rake trusty
+    - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticecadvisor/build/trusty/*.deb /home/gitlab-runner/deb
+  only:
+    - 1.5.0-rc1
+  allow_failure: true
+
+Ubuntu 14.04 verticegateway:
+  stage: gulp
+  before_script:
+    - sleep 10
+  script:
+    - echo "$USER"
+    - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticegateway
+        #- cd /builds/megamsys/gitpackager/vertice
+    - rake clean
+    - echo "$USER"
+    - rake trusty
+    - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticensqd/build/trusty/vertice_gateway/target/*.deb /home/gitlab-runner/deb
+  only:
+    - 1.5.0-rc1
+  allow_failure: true
+
+Ubuntu 14.04 verticegulpd:
+  stage: notification_fail
+  before_script:
+    - echo "$USER"
+        #- cd /builds/megamsys/gitpackager/vertice
+    - export GOPATH=/home/gitlab-runner/.go
+    - export GOROOT=/home/gitlab-runner/software/go
+    - export PATH="$PATH:$HOME/.rvm/bin:$GOROOT/bin:$GOPATH/bin"
+    - echo "$GOPATH"
+    - echo $GOROOT
+    - echo $PATH
+  script:
+    - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticegulpd
+        #- cd /builds/megamsys/gitpackager/vertice
+    - rake clean
+    - echo "$USER"
+    - rake trusty
+    - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticegulpd/build/trusty/*.deb /home/gitlab-runner/deb
+  allow_failure: true
+
+Ubuntu 14.04 vertice:
+  stage: dep
+  before_script:
+    - echo "$USER"
+        #- cd /builds/megamsys/gitpackager/vertice
+    - export GOPATH=/home/gitlab-runner/.go
+    - export GOROOT=/home/gitlab-runner/software/go
+    - export PATH="$PATH:$HOME/.rvm/bin:$GOROOT/bin:$GOPATH/bin"
+    - echo "$GOPATH"
+    - echo $GOROOT
+    - echo $PATH
+  script:
+    - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/vertice
+    - rake clean
+    - echo "$USER"
+    - rake trusty
+    - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/vertice/build/trusty/*.deb /home/gitlab-runner/deb
+
+
+#notify:slack-fail:
+  #image: "alpine"
+#  stage: package
+#  before_script:
+#    - sudo apt-get update && sudo apt-get install -y git curl bash
+  #script:
+  #  - ./support/notify_slack "#relengg" "Build on \`$CI_BUILD_REF_NAME\` success! Commit \`$(git log -1 --oneline)\` See <https://gitlab.com/megamsys/gitpackager/commit/"$CI_BUILD_REF"/builds>"
+  #when: on_success
+  #only:
+  #  - 1.5.0-rc1
