@@ -83,8 +83,7 @@ Ubuntu 14.04 vertice:
 Ubuntu 14.04 verticegulpd:
   stage: dep
   before_script:
-    - echo "$USER"
-        #- cd /builds/megamsys/gitpackager/vertice
+    - echo "$USER"    
     - export GOPATH=/home/gitlab-runner/.go
     - export GOROOT=/home/gitlab-runner/software/go
     - export PATH="$PATH:$HOME/.rvm/bin:$GOROOT/bin:$GOPATH/bin"
