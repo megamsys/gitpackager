@@ -1,8 +1,8 @@
 stages:
-  - build
+  - nsq
 
 Ubuntu 14.04 verticensqd:
-  stage: build
+  stage: nsq
   before_script:
     - sleep 5
   script:
