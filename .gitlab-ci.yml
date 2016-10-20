@@ -4,7 +4,7 @@ stages:
   - build
   - test
   - gulp
-  - dep
+  - nsq
   - notification_fail
 
 Ubuntu 14.04 verticensqd:
@@ -81,7 +81,7 @@ Ubuntu 14.04 vertice:
   allow_failure: true
 
 Ubuntu 14.04 verticegulpd:
-  stage: dep
+  stage: nsq
   before_script:
     - echo "$USER"
     - export GOPATH=/home/gitlab-runner/.go
