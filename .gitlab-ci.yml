@@ -20,7 +20,7 @@ stages:
 Ubuntu 14.04 verticensqd:
   stage: package
   before_script:
-    - rm -rf /var/lib/megam/gitpackager
+    - sudo rm -rf /var/lib/megam/gitpackager
     - cd /var/lib/megam
     - git clone git@gitlab.com:megamsys/gitpackager
   script:
@@ -39,7 +39,7 @@ Ubuntu 14.04 verticensqd:
 Ubuntu 14.04 verticenilavu:
   stage: build
   before_script:
-    - rm -rf /var/lib/megam/gitpackager
+    - sudo rm -rf /var/lib/megam/gitpackager
     - cd /var/lib/megam
     - git clone git@gitlab.com:megamsys/gitpackager
   script:
@@ -60,6 +60,8 @@ Ubuntu 14.04 verticenilavu:
 Ubuntu 14.04 verticecadvisor:
   stage: test
   before_script:
+    - sudo rm -rf /var/lib/megam/gitpackager
+    - cd /var/lib/megam
     - git clone git@gitlab.com:megamsys/gitpackager
   script:
     - echo "$USER"
