@@ -9,7 +9,6 @@ Ubuntu 14.04 verticensqd:
     - echo "$USER"
     - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager /var/lib/megam
     - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticensqd
-    #- cd /var/lib/megam/gitpackager/verticensqd
     - rake clean
     - echo "$USER"
     - rake trusty
