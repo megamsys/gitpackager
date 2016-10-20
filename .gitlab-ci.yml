@@ -1,5 +1,6 @@
 stages:
   - build
+  - test
 
 Ubuntu 14.04 verticensqd:
   stage: build
@@ -18,7 +19,7 @@ Ubuntu 14.04 verticensqd:
     - 1.5.0-rc1
 
 Ubuntu 14.04 verticenilavu:
-  stage: build
+  stage: test
   before_script:
     - sleep 10
   script:
