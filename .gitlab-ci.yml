@@ -1,16 +1,14 @@
 stages:
-  - trusty_nsq
+  - trusty_verticenilavu
 
-Ubuntu 14.04 verticensqd:
-  stage: trusty_nsq
+Ubuntu 14.04 verticenilavu:
+  stage: trusty_verticenilavu
   script:
     - echo "$USER"
-    - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticensqd
+    - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticenilavu
     - rake clean
     - rake trusty
-    - cd /home/megdc
-    - ./ex.sh
-    - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticensqd/build/trusty/*.deb /home/megdc/deb
+    - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticenilavu/build/trusty/*.deb /home/megdc/deb
   allow_failure: true
   only:
     - 1.5.0-rc1
