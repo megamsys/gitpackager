@@ -1,13 +1,14 @@
+stages:
+  - trusty_verticenilavu
 
-#before_script: # Nothing
-  #- apt-get update && apt-get install git curl bash
-
-notify:slack-fail:
-  #image: "alpine"
-  stage: build
+Ubuntu 14.04 verticenilavu:
+  stage: trusty_verticenilavu
   script:
-    - apt-get update && apt-get install git curl bash
-    - ./support/notify_slack "#relengg" "(╯°□°)╯︵┻━┻  Build on \`$CI_BUILD_REF_NAME\` success! Commit \`$(git log -1 --oneline)\` See <https://gitlab.com/megamsys/gitpackager/commit/"$CI_BUILD_REF"/builds>"
-  #when: on_failure
+    - echo "$USER"
+    - cd /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticenilavu
+    - rake clean
+    - rake trusty
+    - sudo cp -R /home/gitlab-runner/builds/fc6c1713/0/megamsys/gitpackager/verticenilavu/build/trusty/*.deb /home/megdc/deb
+  allow_failure: true
   only:
     - 1.5.0-rc1

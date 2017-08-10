@@ -1,0 +1,10 @@
+[Unit]
+Description=NSQ daemon
+After=network.target
+After=runlevel2.target
+After=runlevel3.target
+After=runlevel4.target
+After=runlevel5.target
+[Service]
+ExecStart=<%= @basic[:home] %>/nsqd/bin/nsqd --lookupd-tcp-address=localhost:4160 -data-path=<%= @basic[:libhome] %>/nsqd
+KillMode=process

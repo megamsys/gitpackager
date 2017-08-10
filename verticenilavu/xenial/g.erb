@@ -1,0 +1,28 @@
+#!/bin/sh
+
+mkdir -p ./var/www
+
+cp -r .<%= @basic[:home] %>/nilavu ./var/www
+
+mv ./var/www/nilavu  ./var/www/<%= @package[:package] %>
+
+cd var/www/<%= @package[:package] %>
+
+cp -R ../../../../../base ./
+
+cat > VERSION << EOF
+git_version=`git rev-parse HEAD`
+git_branch=`git branch`
+EOF
+
+cd ../../..
+
+
+
+ fpm -s dir -t deb  -f  --iteration <%= @basic[:iteration] %> -v <%= @basic[:version] %> \
+ -n <%= @package[:package] %> -d "<%= @package[:deb_dependencies] %>" \
+ --before-upgrade ./preupgrd --after-upgrade ./postupgrd \
+ --before-install ./preinst --after-install ./postinst  \
+ --after-remove ./prerm  --after-remove ./postrm  \
+ --license "<%= @basic[:license] %>" --vendor "<%= @basic[:vendor] %>" --category "<%= @package[:category] %>" \
+ --maintainer "<%= @basic[:maintainer] %>" --url "<%= @basic[:url] %>" --description "<%= @package[:description] %>"  ./var/www/<%= @package[:package] %>

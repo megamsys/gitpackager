@@ -1,0 +1,21 @@
+#!/bin/sh
+
+[ -d <%= @basic[:loghome]+"/"+@package[:package] %> ] && rm -rf <%= @basic[:loghome]+"/"+@package[:package] %>
+
+[ -d <%= @basic[:libhome] %>/site_settings.yml ] && rm -rf <%= @basic[:libhome] %>/site_settings.yml
+
+[ -d <%= @basic[:libhome] %>/nilavu.conf ] && rm -rf <%= @basic[:libhome] %>/nilavu.conf
+
+[ -d <%= @basic[:libhome] %>/regions.yml ] && rm -rf <%= @basic[:libhome] %>/regions.yml
+
+[ -d /etc/runit ] && rm -rf /etc/runit
+
+[ -d /etc/service/<%= @package[:upstart_service] %> ] && rm -rf /etc/service/<%= @package[:upstart_service] %>
+
+[ -d /etc/service/nginx ] && rm -rf /etc/service/nginx
+
+[ -d /etc/service/cron ] && rm -rf /etc/service/cron
+
+[ -d /etc/service/rsyslog ] && rm -rf /etc/service/rsyslog
+
+[ -d /var/www/<%= @package[:package] %> ] && rm -rf /var/www/<%= @package[:package] %>

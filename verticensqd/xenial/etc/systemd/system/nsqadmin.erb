@@ -1,0 +1,10 @@
+[Unit]
+Description=NSQ admin
+After=network.target
+After=runlevel2.target
+After=runlevel3.target
+After=runlevel4.target
+After=runlevel5.target
+[Service]
+ExecStart=<%= @basic[:home] %>/nsqd/bin/nsqadmin --lookupd-http-address=localhost:4161
+KillMode=process

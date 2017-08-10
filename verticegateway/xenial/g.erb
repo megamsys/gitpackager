@@ -1,0 +1,17 @@
+#!/bin/sh
+mv .<%= @basic[:home] %>/vertice_gateway .<%= @basic[:home] %>/<%= @package[:package] %>
+cd .<%= @basic[:home] %>/<%= @package[:package] %>
+
+cat > VERSION <<EOF
+git_version=`git rev-parse HEAD`
+git_branch=`git branch`
+EOF
+
+cp VERSION conf
+cp db/base.cql conf
+
+sbt clean
+sbt dist:clean
+sbt compile
+sbt stage
+sbt debian:package-bin

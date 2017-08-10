@@ -1,0 +1,11 @@
+[Unit]
+Description=NSQ lookupd
+After=network.target
+After=runlevel2.target
+After=runlevel3.target
+After=runlevel4.target
+After=runlevel5.target
+[Service]
+EnvironmentFile=<%= @basic[:libhome] %>/env.sh
+ExecStart=<%= @basic[:home] %>/nsqd/bin/nsqlookupd
+KillMode=process
